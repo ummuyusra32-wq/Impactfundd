@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ImpactFund | The Community Crowdfunding Platform</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- Root Variables & Reset --- */
+        :root {
+            --primary-color: #00A896;    /* Vibrant teal - trust, action */
+            --secondary-color: #1A3A3A;  /* Deep dark green - stability, premium feel */
+            --accent-color: #F8B195;     /* Soft peach - excitement, contrast */
+            --text-main: #333333;
+            --text-light: #666666;
+            --white: #FFFFFF;
+            
+            --transition: all 0.3s ease;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--white);
+            color: var(--text-main);
+            line-height: 1.6;
+            scroll-behavior: smooth; /* Modern smooth scrolling */
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition);
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* --- Global Components --- */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            font-size: 0.95rem;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background-color: #008f80;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--primary-color);
+            color: var(--white);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            color: var(--secondary-color);
+        }
+
+        /* --- Main Background Setup --- */
+        #main-wrapper {
+            background-image: linear-gradient(rgba(26, 58, 58, 0.8), rgba(26, 58, 58, 0.8)), 
+                              url('https://images.unsplash.com/photo-1542810634-71277d95dcbb?q=80&w=1920&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed; /* Parallax effect */
+            color: var(--white);
+            min-height: 100vh;
+        }
+
+        /* --- Header / Navigation --- */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(26, 58, 58, 0.9);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--white);
+            letter-spacing: -1px;
+        }
+
+        .logo span {
+            color: var(--primary-color);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--white);
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 5px;
+        }
+
+        /* --- Sections (The 9 Requested) --- */
+        section {
+            padding: 100px 0;
+        }
+
+        /* 1. HOME Section (Hero) */
+        #home {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding-top: 80px;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .hero-content h1 span {
+            color: var(--primary-color);
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            font-weight: 300;
+            opacity: 0.9;
+        }
+
+        /* 2. ABOUT US Section */
+        #about {
+            background-color: rgba(255, 255, 255, 0.95);
+            color: var(--text-main);
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .about-text h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: var(--secondary-color);
+        }
+
+        .about-text p {
+            color: var(--text-light);
+            margin-bottom: 20px;
+        }
+
+        /* 3. HOW IT WORKS Section */
+        #how-it-works {
+            background-color: var(--white);
+            color: var(--text-main);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .feature-card {
+            background-color: var(--bg-light);
+            padding: 40px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+            text-align: center;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 25px;
+        }
+
+        /* 4. DISCOVER Section */
+        #discover {
+            background-color: var(--bg-light);
+            color: var(--text-main);
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .project-card {
+            background-color: var(--white);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .project-image-wrapper {
+            position: relative;
+            height: 230px;
+            overflow: hidden;
+        }
+
+        .project-image-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .project-category {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 5px 15px;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .progress-bar-bg {
+            width: 100%;
+            height: 8px;
+            background-color: #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background-color: var(--primary-color);
+            width: 0%; /* Intial state for JS animation */
+            transition: width 1s ease-out;
+        }
+
+        /* 5. START A CAMPAIGN Section */
+        #start-campaign {
+            background-color: rgba(26, 58, 58, 0.95);
+            color: var(--white);
+            text-align: center;
+        }
+
+        #start-campaign h2 {
+            color: var(--white);
+        }
+
+        /* 6. WHAT OUR CLIENT SAID Section */
+        #testimonials {
+            background-color: var(--white);
+            color: var(--text-main);
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .testimonial-card {
+            background-color: var(--white);
+            padding: 30px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .testimonial-text {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: #eee;
+        }
+
+        /* 7. IMPACT Section */
+        #impact {
+            background-color: var(--bg-light);
+            color: var(--text-main);
+        }
+
+        .impact-stats {
+            display: flex;
+            justify-content: space-around;
+            text-align: center;
+        }
+
+        .stat-item h3 {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        /* 8. OUR STORY Section */
+        #story {
+            background-color: var(--white);
+            color: var(--text-main);
+        }
+
+        /* 9. FINAL CTA Section */
+        #final-cta {
+            padding: 100px 0;
+            background-color: var(--secondary-color);
+            color: var(--white);
+            text-align: center;
+        }
+
+        #final-cta h2 {
+            font-size: 3rem;
+            color: var(--white);
+        }
+
+        /* --- Footer --- */
+        footer {
+            padding: 50px 0;
+            background-color: var(--secondary-color);
+            color: rgba(255, 255, 255, 0.6);
+            text-align: center;
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* --- Backing Modal Simulation (JS triggered) --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            color: var(--text-main);
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background-color: var(--white);
+            padding: 50px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 10px 50px rgba(0,0,0,0.2);
+            text-align: center;
+            max-width: 500px;
+            position: relative;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 1.5rem;
+            color: var(--text-light);
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="main-wrapper">
+
+        <header>
+            <div class="container">
+                <nav>
+                    <a href="#home" class="logo"><span>Impact</span>Fund</a>
+                    <ul class="nav-links">
+                        <li><a href="#home" class="active">Home</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#how-it-works">Services</a></li>
+                        <li><a href="#discover">Projects</a></li>
+                        <li><a href="#start-campaign">Campaign</a></li>
+                        <li><a href="#testimonials">Clients</a></li>
+                        <li><a href="#story">Story</a></li>
+                    </ul>
+                    <a href="#start-campaign" class="btn btn-primary btn-sm">Start Campaign</a>
+                </nav>
+            </div>
+        </header>
+
+        <section id="home">
+            <div class="container">
+                <div class="hero-content">
+                    <h1>Fund the <span>causes</span> that define our humanity.</h1>
+                    <p>ImpactFund connects compassion with action, supporting social, creative, and local community projects across the globe.</p>
+                    <a href="#discover" class="btn btn-primary">Discover Projects</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="about">
+            <div class="container">
+                <h2 class="section-title">Fueling Dreams, Simplified.</h2>
+                <div class="about-content">
+                    <div class="about-text">
+                        <h3>Our Mission</h3>
+                        <p>We provide a dedicated space for social initiatives and personal fundraising, empowering individuals to create sustainable impact. Our platform is designed with clarity and trust at its core.</p>
+                    </div>
+                    <div class="about-image">
+                        <img src="https://images.unsplash.com/photo-1593113598332-cd288d649433?q=80&w=600&auto=format&fit=crop" alt="Volunteers working together">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="how-it-works">
+            <div class="container">
+                <h2 class="section-title">How It Works</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">💡</div>
+                        <h3>Create</h3>
+                        <p>Share your story, set your goal, and define unique rewards.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📣</div>
+                        <h3>Share</h3>
+                        <p>Launch your campaign and grow your community of supporters.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🚀</div>
+                        <h3>Fund</h3>
+                        <p>Reach your goal, receive funds, and bring your project to life.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="discover">
+            <div class="container">
+                <h2 class="section-title">Discover Inspiring Projects</h2>
+                <div class="projects-grid">
+                    <div class="project-card">
+                        <div class="project-image-wrapper">
+                            <img src="https://images.unsplash.com/photo-1542810634-71277d95dcbb?q=80&w=600&auto=format&fit=crop" alt="Volunteers feeding children">
+                            <span class="project-category">Social Good</span>
+                        </div>
+                        <div class="project-details" style="padding: 25px;">
+                            <h3 class="project-title">Feed the Future: Community Meals</h3>
+                            <p style="color: var(--text-light); margin-bottom: 20px;">Expanding our local food kitchen to provide sustainable meals for vulnerable families.</p>
+                            <div class="progress-bar-bg">
+                                <div class="progress-bar-fill" data-percent="85"></div>
+                            </div>
+                        </div>
+                        <div style="padding: 0 25px 25px 25px; text-align: center;">
+                            <button class="btn btn-primary back-project-btn" style="width: 100%;">Back This Project</button>
+                        </div>
+                    </div>
+                    </div>
+            </div>
+        </section>
+
+        <section id="start-campaign">
+            <div class="container">
+                <h2 class="section-title">Ready to Make an Impact?</h2>
+                <p style="max-width: 600px; margin: 0 auto 40px auto; opacity: 0.8;">Join thousands of creators who are already changing lives. Submit your idea today.</p>
+                <a href="#" class="btn btn-primary">Start Your Campaign</a>
+            </div>
+        </section>
+
+        <section id="testimonials">
+            <div class="container">
+                <h2 class="section-title">What Our Clients Said</h2>
+                <div class="testimonials-grid">
+                    <div class="testimonial-card">
+                        <p class="testimonial-text">"ImpactFund was instrumental in making our community garden a reality. The support was incredible!"</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar" style="background-image: url('https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=100&h=100&auto=format&fit=crop'); background-size: cover;"></div>
+                            <h4>Sarah J.</h4>
+                        </div>
+                    </div>
+                    </div>
+            </div>
+        </section>
+
+        <section id="impact">
+            <div class="container">
+                <h2 class="section-title">Our Collective Impact</h2>
+                <div class="impact-stats">
+                    <div class="stat-item"><h3>$1.2M</h3><p>Total Raised</p></div>
+                    <div class="stat-item"><h3>450+</h3><p>Projects Funded</p></div>
+                    <div class="stat-item"><h3>10K+</h3><p>Global Backers</p></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="story">
+            <div class="container">
+                <h2 class="section-title">Our Story</h2>
+                <div class="about-content">
+                    <div class="about-image">
+                        <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=600&auto=format&fit=crop" alt="Founding team discussing ideas">
+                    </div>
+                    <div class="about-text">
+                        <p>We were founded with a simple idea: everyone should have the power to create the future they want. ImpactFund was born from a passion to help visionary projects get the funding they need.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="final-cta">
+            <div class="container">
+                <h2>Join The Movement.</h2>
+                <a href="#discover" class="btn btn-primary">Discover Projects</a>
+            </div>
+        </section>
+
+        <footer>
+            <div class="container">
+                <a href="#home" class="logo"><span>Impact</span>Fund</a>
+                <p>&copy; 2026 ImpactFund Inc. All Rights Reserved.</p>
+            </div>
+        </footer>
+
+    </div> <div class="modal-overlay" id="modal-overlay">
+        <div class="modal-content">
+            <span class="modal-close" id="modal-close">&times;</span>
+            <div class="modal-icon" style="font-size: 4rem; color: var(--primary-color); margin-bottom: 20px;">✅</div>
+            <h2>Amazing Choice!</h2>
+            <p style="margin: 15px 0 25px 0; color: #666;">This is a simulation of the payment process. We’d take you to the reward selection tier next.</p>
+            <button class="btn btn-primary" id="modal-confirm">Confirm Backing</button>
+        </div>
+    </div>
+
+    <script>
+        // --- 1. Progress Bar Animation ---
+        // This makes the progress bars animate when they come into view.
+        window.addEventListener('scroll', () => {
+            const progressFills = document.querySelectorAll('.progress-bar-fill');
+            progressFills.forEach(fill => {
+                const percentage = fill.getAttribute('data-percent');
+                const position = fill.getBoundingClientRect();
+                
+                // If the bar is in the viewport, run animation
+                if (position.top < window.innerHeight && position.bottom >= 0) {
+                    fill.style.width = percentage + '%';
+                }
+            });
+        });
+
+        // --- 2. Modal/Backing Simulation ---
+        const backButtons = document.querySelectorAll('.back-project-btn');
+        const modalOverlay = document.getElementById('modal-overlay');
+        const modalClose = document.getElementById('modal-close');
+        const modalConfirm = document.getElementById('modal-confirm');
+
+        const showModal = () => modalOverlay.classList.add('active');
+        const hideModal = () => modalOverlay.classList.remove('active');
+
+        backButtons.forEach(btn => btn.addEventListener('click', showModal));
+        modalClose.addEventListener('click', hideModal);
+        modalOverlay.addEventListener('click', (e) => {
+            if (e.target === modalOverlay) hideModal();
+        });
+        modalConfirm.addEventListener('click', () => {
+            alert('Your backing intent is confirmed! In a real app, this would process payment.');
+            hideModal();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Impact Fund | Premium Crowdfunding</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #10b981;
+            --primary-dark: #065f46;
+            --secondary: #0f172a;
+            --accent: #6366f1;
+            --danger: #ef4444;
+            --white: #ffffff;
+            --light: #f1f5f9;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; color: var(--secondary); background: var(--light); line-height: 1.6; }
+
+        /* --- Navigation --- */
+        nav {
+            position: fixed; top: 0; width: 100%; padding: 15px 8%;
+            display: flex; justify-content: space-between; align-items: center;
+            background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(15px);
+            z-index: 2000; box-shadow: 0 4px 30px rgba(0,0,0,0.03);
+        }
+        .logo { font-size: 1.5rem; font-weight: 800; color: var(--secondary); letter-spacing: -1px; }
+        .logo span { color: var(--primary); }
+        nav ul { display: flex; list-style: none; gap: 20px; }
+        nav ul li a { text-decoration: none; color: var(--secondary); font-weight: 600; font-size: 0.85rem; }
+        
+        .emergency-btn {
+            background: var(--danger); color: white; padding: 10px 22px; border-radius: 50px;
+            text-decoration: none; font-weight: 800; font-size: 0.75rem; animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
+            70% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+        }
+
+        /* --- Live Donation Ticker --- */
+        .ticker {
+            background: var(--secondary); color: white; padding: 10px 0;
+            overflow: hidden; position: relative; margin-top: 70px;
+        }
+        .ticker-wrap { display: flex; white-space: nowrap; animation: ticker 30s linear infinite; }
+        .ticker-item { margin-right: 50px; font-weight: 600; font-size: 0.9rem; }
+        @keyframes ticker { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
+
+        /* --- Hero Section --- */
+        #home {
+            height: 90vh;
+            background: linear-gradient(rgba(15, 23, 42, 0.6), rgba(15, 23, 42, 0.6)), 
+                        url('https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&w=1600&q=80');
+            background-size: cover; background-position: center;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            text-align: center; color: white; padding: 0 10%;
+        }
+        .hero-h1 { font-size: 4rem; font-weight: 800; margin-bottom: 20px; }
+
+        /* --- Section Styling --- */
+        section { padding: 80px 10%; }
+        .sec-title { font-size: 2.5rem; margin-bottom: 40px; text-align: center; font-weight: 800; }
+        .card { background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); transition: 0.3s; }
+        .card:hover { transform: translateY(-10px); }
+
+        /* --- Progress Bar --- */
+        .progress-container { background: #eee; border-radius: 10px; height: 10px; margin: 15px 0; overflow: hidden; }
+        .progress-fill { background: var(--primary); height: 100%; width: 75%; }
+
+        /* --- FAQ Accordion --- */
+        .faq-item { background: white; margin-bottom: 10px; border-radius: 10px; overflow: hidden; cursor: pointer; }
+        .faq-question { padding: 20px; font-weight: 700; display: flex; justify-content: space-between; }
+        .faq-answer { padding: 0 20px 20px; display: none; color: #64748b; }
+
+        /* --- Newsletter --- */
+        .newsletter { background: var(--primary); color: white; border-radius: 30px; padding: 60px; text-align: center; margin-top: 50px; }
+        .news-input { padding: 15px; width: 300px; border-radius: 10px; border: none; margin-right: 10px; }
+
+        /* --- Campaign Dashboard --- */
+        .grid-dashboard { display: grid; grid-template-columns: 1.5fr 1fr; gap: 30px; }
+        .btn { background: var(--primary); color: white; border: none; padding: 15px; border-radius: 10px; font-weight: 800; cursor: pointer; width: 100%; }
+
+        footer { background: var(--secondary); color: white; padding: 50px 10%; text-align: center; }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">IMPACT<span>FUND.</span></div>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#campaign">Campaign</a></li>
+            <li><a href="#story">Story</a></li>
+        </ul>
+        <a href="tel:911" class="emergency-btn">EMERGENCY CALL</a>
+    </nav>
+
+    <div class="ticker">
+        <div class="ticker-wrap">
+            <div class="ticker-item">💰 Anonymous donated $500 to 'Meals for All'</div>
+            <div class="ticker-item">💰 Amina donated $250 to 'Village Water'</div>
+            <div class="ticker-item">💰 Sarah J. donated $1,000 to 'Urban Soup Drive'</div>
+            <div class="ticker-item">💰 Mark R. donated $50 to 'Hope Kitchen'</div>
+        </div>
+    </div>
+
+    <section id="home">
+        <h1 class="hero-h1">Fund the Future, <br>Feed the Soul.</h1>
+        <p style="font-size: 1.2rem; margin-bottom: 30px;">Global crowdfunding for local impact. Direct. Transparent. Revolutionary.</p>
+        <a href="#campaign" class="btn" style="width: auto; padding: 15px 40px; text-decoration: none;">Launch Campaign</a>
+    </section>
+
+    <section id="about">
+        <h2 class="sec-title">Our Strategic Team</h2>
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;">
+            <div class="card" style="text-align: center;">
+                <div style="width: 70px; height: 70px; background: var(--primary); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px; font-weight: 800;">CEO</div>
+                <h3>Executive Leader</h3>
+                <p>Strategist & Philanthropist</p>
+            </div>
+            <div class="card" style="text-align: center;">
+                <div style="width: 70px; height: 70px; background: var(--secondary); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px; font-weight: 800;">YOU</div>
+                <h3>Project Architect</h3>
+                <p>Lead Developer & Innovator</p>
+            </div>
+            <div class="card" style="text-align: center;">
+                <div style="width: 70px; height: 70px; background: var(--accent); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px; font-weight: 800;">CTO</div>
+                <h3>Technical Director</h3>
+                <p>Blockchain & Security Expert</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="campaign">
+        <h2 class="sec-title">Campaign Dashboard</h2>
+        <div class="grid-dashboard">
+            <div class="card">
+                <h3>1. Launch New Mission</h3>
+                <form id="missionForm" style="margin-top: 20px;">
+                    <div style="margin-bottom: 15px;"><label>Campaign Name</label><input type="text" id="name" style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #ddd;" required></div>
+                    <div style="display: flex; gap: 10px; margin-bottom: 15px;">
+                        <div style="flex: 1;"><label>Goal ($)</label><input type="number" id="goal" style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #ddd;" required></div>
+                        <div style="flex: 1;"><label>Deadline</label><input type="date" style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #ddd;" required></div>
+                    </div>
+                    <button type="submit" class="btn">INITIALIZE</button>
+                </form>
+            </div>
+            <div class="card">
+                <h3>2. Platform Analytics</h3>
+                <div style="margin-top: 20px;">
+                    <p>Current Success Rate: <strong>89%</strong></p>
+                    <div class="progress-container"><div class="progress-fill"></div></div>
+                    <p>Verified Users: <strong>14,200</strong></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="faq">
+        <h2 class="sec-title">Common Questions</h2>
+        <div class="faq-item" onclick="toggleFaq(this)">
+            <div class="faq-question">How are funds protected? <span>+</span></div>
+            <div class="faq-answer">We use multi-signature wallets and strict vetting to ensure 100% security.</div>
+        </div>
+        <div class="faq-item" onclick="toggleFaq(this)">
+            <div class="faq-question">Can I donate anonymously? <span>+</span></div>
+            <div class="faq-answer">Yes, our platform supports private donations for your security.</div>
+        </div>
+    </section>
+
+    <section>
+        <div class="newsletter">
+            <h2>Stay Updated</h2>
+            <p style="margin-bottom: 20px;">Join 5,000+ donors receiving weekly impact reports.</p>
+            <input type="email" placeholder="Enter your email" class="news-input">
+            <button class="btn" style="width: auto; padding: 15px 30px;">SUBSCRIBE</button>
+        </div>
+    </section>
+
+    <footer>
+        <h2 style="color: var(--primary);">IMPACT FUND.</h2>
+        <p>&copy; 2026 Impact Fund Global. Built with Passion.</p>
+    </footer>
+
+    <script>
+        function toggleFaq(element) {
+            const answer = element.querySelector('.faq-answer');
+            const span = element.querySelector('span');
+            if (answer.style.display === "block") {
+                answer.style.display = "none";
+                span.innerText = "+";
+            } else {
+                answer.style.display = "block";
+                span.innerText = "-";
+            }
+        }
+
+        document.getElementById('missionForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('name').value;
+            alert(`Strategic Success! "${name}" is now being broadcast to global donors.`);
+            this.reset();
+        });
+    </script>
+</body>
+</html>

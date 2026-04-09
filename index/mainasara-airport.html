@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Impact Fund | Empowering Humanity</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2ecc71;
+            --primary-dark: #27ae60;
+            --secondary: #1a2a6c;
+            --text-dark: #2d3436;
+            --text-light: #636e72;
+            --white: #ffffff;
+            --glass: rgba(255, 255, 255, 0.95);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: var(--text-dark);
+            line-height: 1.6;
+            background-color: #f8f9fa;
+        }
+
+        /* --- Navigation --- */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 20px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li { margin-left: 30px; }
+
+        nav ul li a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: 0.3s;
+        }
+
+        nav ul li a:hover { color: var(--primary); }
+
+        /* --- Hero Section --- */
+        #home {
+            height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), 
+                        url('https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: var(--white);
+            padding: 0 20px;
+        }
+
+        .hero-h1 { font-size: 4rem; font-weight: 800; margin-bottom: 20px; }
+        .hero-p { font-size: 1.2rem; max-width: 700px; margin-bottom: 30px; opacity: 0.9; }
+
+        /* --- Collective Impact Section --- */
+        .impact-bar {
+            background: var(--white);
+            padding: 60px 5%;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            text-align: center;
+            margin-top: -50px;
+            width: 90%;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        }
+
+        .stat-box h2 { font-size: 2.5rem; color: var(--primary); margin-bottom: 5px; }
+        .stat-box p { font-weight: 600; color: var(--text-light); }
+
+        /* --- Generic Section Styling --- */
+        section { padding: 100px 10%; min-height: 80vh; }
+        .section-header { text-align: center; margin-bottom: 60px; }
+        .section-header h2 { font-size: 2.5rem; color: var(--secondary); margin-bottom: 15px; }
+        .section-header p { color: var(--text-light); max-width: 600px; margin: 0 auto; }
+
+        /* --- Grid & Cards --- */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
+            background: var(--white);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            transition: 0.3s;
+        }
+        .card:hover { transform: translateY(-10px); }
+
+        /* --- Campaign Form --- */
+        .campaign-container {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+
+        .form-group { margin-bottom: 20px; }
+        label { display: block; margin-bottom: 8px; font-weight: 600; font-size: 0.9rem; }
+        input, textarea {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #eee;
+            border-radius: 10px;
+            background: #fdfdfd;
+            font-family: inherit;
+        }
+
+        .btn {
+            background: var(--primary);
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 10px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+            width: 100%;
+        }
+        .btn:hover { background: var(--primary-dark); box-shadow: 0 10px 20px rgba(46, 204, 113, 0.3); }
+
+        /* --- User List Styling --- */
+        .user-row {
+            display: flex;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #f1f1f1;
+        }
+        .user-img {
+            width: 45px; height: 45px; border-radius: 50%;
+            background: var(--secondary); color: white;
+            display: flex; align-items: center; justify-content: center;
+            margin-right: 15px; font-weight: bold;
+        }
+
+        footer { background: var(--secondary); color: white; padding: 40px; text-align: center; }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-h1 { font-size: 2.5rem; }
+            .campaign-container { grid-template-columns: 1fr; }
+            nav ul { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">Impact Fund</div>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#campaign">Campaign</a></li>
+            <li><a href="#clients">Clients</a></li>
+            <li><a href="#story">Story</a></li>
+        </ul>
+    </nav>
+
+    <section id="home">
+        <div class="hero-content">
+            <h1 class="hero-h1">Collective Impact,<br>Real Change.</h1>
+            <p class="hero-p">Directly fund verified hunger relief projects and track your impact in real-time. Join 10,000+ donors making a difference today.</p>
+            <a href="#campaign" class="btn" style="width: auto;">Start a Campaign</a>
+        </div>
+        
+        <div class="impact-bar">
+            <div class="stat-box">
+                <h2 id="count1">500k+</h2>
+                <p>Meals Delivered</p>
+            </div>
+            <div class="stat-box">
+                <h2 id="count2">$2.4M</h2>
+                <p>Total Raised</p>
+            </div>
+            <div class="stat-box">
+                <h2>Our Collective Impact</h2>
+                <p>Global Statistics</p>
+            </div>
+            <div class="stat-box">
+                <h2 id="count3">12</h2>
+                <p>Countries Reached</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="about">
+        <div class="section-header">
+            <h2>About Impact Fund</h2>
+            <p>We are a decentralized funding platform designed to cut the red tape and get resources to the people who need them most.</p>
+        </div>
+        <div class="grid">
+            <div class="card">
+                <h3>Our Vision</h3>
+                <p>A world where no person goes to sleep hungry, and community leaders have the capital to solve local problems.</p>
+            </div>
+            <div class="card">
+                <h3>Our Tech</h3>
+                <p>Using transparent tracking, we ensure that 100% of your donations reach the intended campaign.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="services" style="background: #f1f3f5;">
+        <div class="section-header">
+            <h2>What We Do</h2>
+        </div>
+        <div class="grid">
+            <div class="card"><h3>Emergency Relief</h3></div>
+            <div class="card"><h3>Long-term Grants</h3></div>
+            <div class="card"><h3>Impact Auditing</h3></div>
+        </div>
+    </section>
+
+    <section id="projects">
+        <div class="section-header">
+            <h2>Ongoing Projects</h2>
+        </div>
+        <div class="grid">
+            <div class="card" style="border-top: 5px solid var(--primary);">
+                <span style="color: var(--primary); font-weight: bold;">Active</span>
+                <h3>Project: Seed Hope</h3>
+                <p>Providing drought-resistant seeds to farmers in sub-Saharan Africa.</p>
+            </div>
+            <div class="card" style="border-top: 5px solid var(--accent);">
+                <h3>Project: City Kitchens</h3>
+                <p>Mobile kitchens serving nutritious meals in urban food deserts.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="campaign" style="background: #fff;">
+        <div class="section-header">
+            <h2>Campaign Portal</h2>
+            <p>Create a movement or manage our active community of changemakers.</p>
+        </div>
+
+        <div class="campaign-container">
+            <div class="card">
+                <h3 style="margin-bottom: 25px;">Create a New Campaign</h3>
+                <form id="campaignForm">
+                    <div class="form-group">
+                        <label>Name of Campaign</label>
+                        <input type="text" id="cName" placeholder="e.g. Winter Soup Kitchen 2026" required>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                        <div class="form-group">
+                            <label>Amount Needed ($)</label>
+                            <input type="number" id="cAmount" placeholder="5000" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Deadline</label>
+                            <input type="date" id="cDate" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Description of Campaign</label>
+                        <textarea id="cDesc" rows="5" placeholder="Tell your story..."></textarea>
+                    </div>
+                    <button type="submit" class="btn">Launch Campaign</button>
+                </form>
+            </div>
+
+            <div class="card">
+                <h3 style="margin-bottom: 25px;">Community Leaders</h3>
+                <div id="userList">
+                    <div class="user-row">
+                        <div class="user-img">AJ</div>
+                        <div><strong>Alice Johnson</strong><p style="font-size: 0.8rem; color: var(--text-light);">5 Campaigns Created</p></div>
+                    </div>
+                    <div class="user-row">
+                        <div class="user-img" style="background: var(--primary);">MK</div>
+                        <div><strong>Mark Kasov</strong><p style="font-size: 0.8rem; color: var(--text-light);">Top Contributor</p></div>
+                    </div>
+                    <div class="user-row">
+                        <div class="user-img" style="background: #f39c12;">SL</div>
+                        <div><strong>Sarah Lee</strong><p style="font-size: 0.8rem; color: var(--text-light);">Verified Partner</p></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="clients">
+        <div class="section-header">
+            <h2>Trusted By</h2>
+        </div>
+        <div class="grid" style="text-align: center; opacity: 0.6;">
+            <h3>World Aid Org</h3>
+            <h3>Community First</h3>
+            <h3>Global Giving</h3>
+        </div>
+    </section>
+
+    <section id="story" style="background: var(--secondary); color: white;">
+        <div class="section-header">
+            <h2 style="color: white;">The Story</h2>
+            <p style="color: rgba(255,255,255,0.7);">One bowl of rice changed everything.</p>
+        </div>
+        <div style="max-width: 800px; margin: 0 auto; text-align: center;">
+            <p>Our story began in a small village where we realized that people didn't need charity—they needed an <strong>Impact Fund</strong>. By providing the capital for local solutions, we empowered a community to feed itself forever.</p>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Impact Fund. Designed for Social Excellence.</p>
+    </footer>
+
+    <script>
+        // Form Handling
+        const form = document.getElementById('campaignForm');
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('cName').value;
+            const amount = document.getElementById('cAmount').value;
+It’s big, gray, and has a long trunk.
+            // Success feedback
+            alert(`Congratulations! Your campaign "${name}" has been submitted for verification. Target: $${amount}`);
+            form.reset();
+        });
+
+        // Simple Animation for Navigation
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.style.padding = '10px 5%';
+                nav.style.background = 'rgba(255, 255, 255, 0.98)';
+            } else {
+                nav.style.padding = '20px 5%';
+                nav.style.background = 'rgba(255, 255, 255, 0.95)';
+            }
+        });
+    </script>
+</body>
+</html>
