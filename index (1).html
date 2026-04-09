@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Impact Fund Revolutionary Funding</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #00d2ff;
+            --primary-dark: #3a7bd5;
+            --secondary: #0f172a;
+            --danger: #ff4757;
+            --white: #ffffff;
+            --glass: rgba(255, 255, 255, 0.95);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: var(--secondary);
+            background-color: #f1f5f9;
+            line-height: 1.6;
+        }
+
+        /* --- Modern Navigation --- */
+        nav {
+            position: fixed;
+            top: 0; width: 100%; padding: 15px 8%;
+            display: flex; justify-content: space-between; align-items: center;
+            background: var(--glass); backdrop-filter: blur(10px);
+            z-index: 2000; box-shadow: 0 4px 30px rgba(0,0,0,0.05);
+        }
+
+        .logo { font-size: 1.5rem; font-weight: 800; color: var(--primary-dark); letter-spacing: -1px; }
+
+        nav ul { display: flex; list-style: none; gap: 20px; }
+        nav ul li a { 
+            text-decoration: none; color: var(--secondary); 
+            font-weight: 600; font-size: 0.85rem; transition: 0.3s;
+        }
+        nav ul li a:hover { color: var(--primary-dark); }
+
+        .emergency-btn {
+            background: var(--danger); color: white; padding: 10px 20px;
+            border-radius: 50px; text-decoration: none; font-weight: 800;
+            font-size: 0.75rem; box-shadow: 0 4px 15px rgba(255, 71, 87, 0.3);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(255, 71, 87, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(255, 71, 87, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 71, 87, 0); }
+        }
+
+        /* --- Hero Section (HOME) --- */
+        #home {
+            height: 100vh;
+            background: linear-gradient(rgba(15, 23, 42, 0.7), rgba(15, 23, 42, 0.7)), 
+                        url('pexels-lagosfoodbank-9968380.jpg');
+            background-size: cover; background-position: center; background-attachment: fixed;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            text-align: center; color: white; padding: 0 10%;
+        }
+
+        .hero-h1 { font-size: 4.5rem; font-weight: 800; margin-bottom: 20px; line-height: 1.1; }
+        .hero-p { font-size: 1.2rem; max-width: 800px; margin-bottom: 40px; opacity: 0.9; }
+
+        /* --- Section Styling --- */
+        section { padding: 100px 10%; min-height: 90vh; }
+        .tag { color: var(--primary-dark); font-weight: 800; text-transform: uppercase; font-size: 0.8rem; margin-bottom: 10px; display: block; }
+        h2.title { font-size: 3rem; margin-bottom: 50px; font-weight: 800; }
+
+        .card { background: white; padding: 40px; border-radius: 25px; box-shadow: 0 15px 40px rgba(0,0,0,0.03); transition: 0.4s; }
+        .card:hover { transform: translateY(-10px); border: 1px solid var(--primary); }
+
+        /* --- Team Grid --- */
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
+        .team-member { text-align: center; }
+        .avatar { width: 100px; height: 100px; background: #e2e8f0; border-radius: 50%; margin: 0 auto 20px; display: flex; align-items: center; justify-content: center; font-weight: 800; color: var(--primary-dark); }
+
+        /* --- Campaign Dashboard --- */
+        .dashboard { display: grid; grid-template-columns: 1.5fr 1fr; gap: 40px; }
+        .form-group { margin-bottom: 20px; }
+        label { display: block; margin-bottom: 8px; font-weight: 700; font-size: 0.9rem; }
+        input, textarea {
+            width: 100%; padding: 15px; border: 2px solid #f1f5f9; border-radius: 15px;
+            font-family: inherit; font-size: 1rem;
+        }
+        .btn {
+            background: linear-gradient(to right, var(--primary), var(--primary-dark));
+            color: white; border: none; padding: 18px; border-radius: 15px;
+            font-weight: 800; cursor: pointer; transition: 0.3s; width: 100%;
+        }
+        .btn:hover { opacity: 0.9; transform: scale(1.02); }
+
+        /* --- User List --- */
+        .user-row { display: flex; align-items: center; padding: 15px; border-bottom: 1px solid #f1f5f9; }
+        .u-circle { width: 40px; height: 40px; background: var(--secondary); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 15px; font-weight: 800; }
+
+        footer { background: var(--secondary); color: white; padding: 60px 10%; text-align: center; }
+
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">IMPACT FUND.</div>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#campaign">Campaign</a></li>
+            <li><a href="#clients">Clients</a></li>
+            <li><a href="#story">Story</a></li>
+        </ul>
+        <a href="tel:911" class="emergency-btn">EMERGENCY CALL</a>
+    </nav>
+
+    <section id="home">
+        <h1 class="hero-h1">Direct Funding. <br><span style="color:var(--primary)">Real Humanity.</span></h1>
+        <p class="hero-p">Welcome to the future of impact funding. We help you send resources directly to those giving food to the poor, with 100% transparency.</p>
+        <a href="#campaign" class="btn" style="width: auto; padding: 15px 40px;">Launch a Campaign</a>
+    </section>
+
+    <section id="about">
+        <span class="tag">The Organization</span>
+        <h2 class="title">Our Team & Mission</h2>
+        <div class="grid">
+            <div class="card team-member">
+                <div class="avatar">CEO</div>
+                <h3>Founder Name</h3>
+                <p>Leading the vision for a hunger-free world.</p>
+            </div>
+            <div class="card team-member">
+                <div class="avatar">CTO</div>
+                <h3>Tech Director</h3>
+                <p>Architect of the transparent funding ledger.</p>
+            </div>
+            <div class="card team-member">
+                <div class="avatar" style="background:var(--primary); color:white">CCO</div>
+                <h3>Lead Presenter</h3>
+                <p>Managing global campaign operations.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="services" style="background: #fff;">
+        <span class="tag">How We Help</span>
+        <h2 class="title">Expert Impact Services</h2>
+        <div class="grid">
+            <div class="card"><h3>Fundraising</h3><p>Global reach for local community leaders.</p></div>
+            <div class="card"><h3>Food Logistics</h3><p>Connecting kitchens to reliable suppliers.</p></div>
+            <div class="card"><h3>Vetting</h3><p>Ensuring every cent reaches the intended plate.</p></div>
+        </div>
+    </section>
+
+    <section id="projects">
+        <span class="tag">Field Work</span>
+        <h2 class="title">Live Impact Projects</h2>
+        <div class="grid">
+            <div class="card" style="border-left: 10px solid var(--primary);">
+                <h3>The Daily Bread</h3>
+                <p>Serving 2,000 hot meals daily across local soup kitchens.</p>
+            </div>
+            <div class="card" style="border-left: 10px solid var(--secondary);">
+                <h3>Rural Relief</h3>
+                <p>Bringing food security to off-grid agricultural communities.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="campaign">
+        <span class="tag">Operation Center</span>
+        <h2 class="title">Campaign Dashboard</h2>
+        <div class="dashboard">
+            <div class="card">
+                <h3 style="margin-bottom: 25px;">1. Create New Campaign</h3>
+                <form id="impactForm">
+                    <div class="form-group"><label>a. Name of Campaign</label><input type="text" id="cName" placeholder="e.g. Hope for the Poor" required></div>
+                    <div style="display:flex; gap:20px;">
+                        <div class="form-group" style="flex:1"><label>b. Amount Needed ($)</label><input type="number" id="cAmt" required></div>
+                        <div class="form-group" style="flex:1"><label>c. Deadline</label><input type="date" id="cDate" required></div>
+                    </div>
+                    <div class="form-group"><label>d. Description</label><textarea id="cDesc" rows="4"></textarea></div>
+                    <button type="submit" class="btn">INITIALIZE CAMPAIGN</button>
+                </form>
+            </div>
+            <div class="card">
+                <h3 style="margin-bottom: 25px;">2. Active Users</h3>
+                <div id="userList">
+                    <div class="user-row"><div class="u-circle">AM</div><strong>Amina Global</strong></div>
+                    <div class="user-row"><div class="u-circle" style="background:var(--primary)">ME</div><strong>Lead Developer (You)</strong></div>
+                    <div class="user-row"><div class="u-circle" style="background:var(--danger)">VP</div><strong>Volunteer Partner</strong></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="clients" style="background: #fff; text-align: center;">
+        <span class="tag">Endorsements</span>
+        <h2 class="title">Our Global Partners</h2>
+        <div class="grid" style="opacity: 0.4; font-weight: 800; font-size: 1.4rem;">
+            <p>UN RELIEF</p><p>RED CROSS</p><p>WORLD FOOD ORG</p>
+        </div>
+    </section>
+
+    <section id="story">
+        <div class="grid" style="align-items: center;">
+            <div>
+                <span class="tag">The Journey</span>
+                <h2 class="title">It started with <br>one mission.</h2>
+                <p>We saw that people wanted to help, but didn't know where their money went. Impact Fund was built to bridge that gap. Today, we are a family of thousands helping millions.</p>
+            </div>
+            <img src="pexels-lagosfoodbank-9090903.jpg" style="width:100%; border-radius: 30px; box-shadow: 0 20px 50px rgba(0,0,0,0.1);" alt="Food Charity">
+        </div>
+    </section>
+
+    <footer>
+        <h2 style="color: var(--primary);">IMPACT FUND.</h2>
+        <p>Changing the narrative, one campaign at a time.</p>
+    </footer>
+
+    <script>
+        // Form Logic
+        document.getElementById('impactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('cName').value;
+            alert(`Campaign "${name}" has been successfully broadcast to the network!`);
+            this.reset();
+        });
+    </script>
+</body>
+</html>
