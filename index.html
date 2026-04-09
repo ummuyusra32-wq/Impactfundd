@@ -96,6 +96,10 @@
         }
         .btn:hover { opacity: 0.9; transform: scale(1.02); }
 
+        /* --- Common Utilities --- */
+        .campaign-stats { display: flex; justify-content: space-between; font-size: 0.9rem; font-weight: 700; margin-bottom: 10px; }
+        .contributors-list { margin-top: 15px; max-height: 120px; overflow-y: auto; font-size: 0.85rem; padding-top: 15px; border-top: 1px solid #f1f5f9; scrollbar-width: thin; }
+
         /* --- User List --- */
         .user-row { display: flex; align-items: center; padding: 15px; border-bottom: 1px solid #f1f5f9; }
         .u-circle { width: 40px; height: 40px; background: var(--secondary); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 15px; font-weight: 800; }
@@ -114,6 +118,7 @@
             <li><a href="#services">Services</a></li>
             <li><a href="#projects">Projects</a></li>
             <li><a href="#campaign">Campaign</a></li>
+            <li><a href="#active-campaigns">Donate</a></li>
             <li><a href="#clients">Clients</a></li>
             <li><a href="#story">Story</a></li>
         </ul>
@@ -200,7 +205,15 @@
         </div>
     </section>
 
-    <section id="clients" style="background: #fff; text-align: center;">
+    <section id="active-campaigns" style="background: #fff;">
+        <span class="tag">Target Funding</span>
+        <h2 class="title">Active Crowdfunding Campaigns</h2>
+        <div class="grid" id="campaignsGrid">
+            <!-- Dynamically populated via JS -->
+        </div>
+    </section>
+
+    <section id="clients" style="text-align: center;">
         <span class="tag">Endorsements</span>
         <h2 class="title">Our Global Partners</h2>
         <div class="grid" style="opacity: 0.4; font-weight: 800; font-size: 1.4rem;">
@@ -225,13 +238,138 @@
     </footer>
 
     <script>
-        // Form Logic
-        document.getElementById('impactForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const name = document.getElementById('cName').value;
-            alert(`Campaign "${name}" has been successfully broadcast to the network!`);
-            this.reset();
-        });
+        const form = document.getElementById('impactForm');
+        const campaignsGrid = document.getElementById('campaignsGrid');
+        
+        // Load existing campaigns from local storage
+        let campaigns = JSON.parse(localStorage.getItem('impact_campaigns')) || [];
+
+        function saveCampaigns() {
+            localStorage.setItem('impact_campaigns', JSON.stringify(campaigns));
+        }
+
+        function renderCampaigns() {
+            if (!campaignsGrid) return;
+            campaignsGrid.innerHTML = '';
+            
+            if (campaigns.length === 0) {
+                campaignsGrid.innerHTML = '<p style="grid-column: 1 / -1; text-align: center; opacity: 0.6; font-size: 1.1rem; padding: 40px;">No active campaigns right now. Be the first to start one above!</p>';
+                return;
+            }
+
+            campaigns.forEach(camp => {
+                const targetAmt = camp.targetAmount || 1; // Prevent division by zero
+                const progressPercentage = Math.min((camp.currentAmount / targetAmt) * 100, 100).toFixed(1);
+                
+                let contributorsHTML = '<strong>Recent Contributors:</strong><ul style="list-style:none; padding:0; margin-top:10px;">';
+                if(camp.contributors && camp.contributors.length > 0) {
+                    // Show last 10 contributors reversed
+                    const recentContributors = camp.contributors.slice(-10).reverse();
+                    recentContributors.forEach(c => {
+                        contributorsHTML += `<li style="padding: 5px 0; border-bottom: 1px dashed #e2e8f0; display:flex; justify-content:space-between;">
+                            <span style="font-weight:600; color:var(--primary-dark)">${c.name}</span> 
+                            <span>$${c.amount.toLocaleString()}</span>
+                        </li>`;
+                    });
+                } else {
+                    contributorsHTML += '<li style="opacity:0.6; padding-top: 5px;">No contributors yet. Be the first!</li>';
+                }
+                contributorsHTML += '</ul>';
+
+                const cardHTML = `
+                    <div class="card campaign-card" style="display:flex; flex-direction:column; border: 1px solid #f1f5f9;">
+                        <h3 style="margin-bottom:10px; color: var(--primary-dark);">${camp.name}</h3>
+                        <p style="font-size:0.9rem; opacity:0.8; margin-bottom:15px; flex-grow:1; min-height: 40px; border-bottom: 1px solid #f1f5f9; padding-bottom: 15px;">${camp.description || 'No description provided.'}</p>
+                        
+                        <div class="campaign-stats">
+                            <span style="color:var(--primary-dark)">Raised: $${camp.currentAmount.toLocaleString()}</span>
+                            <span style="opacity:0.7">Goal: $${targetAmt.toLocaleString()}</span>
+                        </div>
+                        <div style="width: 100%; height: 8px; background: #e2e8f0; border-radius: 4px; overflow: hidden; margin-bottom: 5px;">
+                            <div style="height: 100%; background: var(--primary); width: ${progressPercentage}%; transition: width 0.5s ease-in-out;"></div>
+                        </div>
+                        <p style="font-size:0.8rem; font-weight:700; margin-bottom:20px; text-align:right;">${progressPercentage}% Funded</p>
+                        
+                        <div style="display:flex; gap: 10px; margin-bottom: 15px;">
+                            <input type="text" id="donorName_${camp.id}" placeholder="Your Name" style="flex: 2; padding: 10px; border-radius: 10px; border: 2px solid #f1f5f9;">
+                            <input type="number" id="donateAmt_${camp.id}" placeholder="Amt $" style="flex: 1; min-width: 0; padding: 10px; border-radius: 10px; border: 2px solid #f1f5f9;">
+                        </div>
+                        <button onclick="donate('${camp.id}')" class="btn" style="padding: 12px; font-size: 0.9rem; border-radius: 10px;">Donate Now</button>
+                        
+                        <div class="contributors-list">
+                            ${contributorsHTML}
+                        </div>
+                    </div>
+                `;
+                campaignsGrid.insertAdjacentHTML('beforeend', cardHTML);
+            });
+        }
+
+        window.donate = function(id) {
+            const nameInput = document.getElementById('donorName_' + id);
+            const amtInput = document.getElementById('donateAmt_' + id);
+            const name = nameInput.value.trim() || 'Anonymous';
+            const amount = parseFloat(amtInput.value);
+
+            if (isNaN(amount) || amount <= 0) {
+                alert("Please enter a valid donation amount.");
+                return;
+            }
+
+            const camp = campaigns.find(c => c.id === id);
+            if (camp) {
+                camp.currentAmount += amount;
+                if(!camp.contributors) camp.contributors = [];
+                camp.contributors.push({ name, amount });
+                saveCampaigns();
+                renderCampaigns();
+                
+                // Keep the page layout from jumping back to top mostly
+                const card = document.getElementById('campaignsGrid');
+                if (card) {
+                    card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }
+                setTimeout(() => alert(`Thank you, ${name}, for your generous donation of $${amount}!`), 100);
+            }
+        };
+
+        if (form) {
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const name = document.getElementById('cName').value;
+                const targetAmount = parseFloat(document.getElementById('cAmt').value);
+                const deadline = document.getElementById('cDate').value;
+                const description = document.getElementById('cDesc').value;
+
+                if(isNaN(targetAmount) || targetAmount <= 0) {
+                    alert("Please enter a valid target amount.");
+                    return;
+                }
+
+                const newCampaign = {
+                    id: Date.now().toString(),
+                    name,
+                    targetAmount,
+                    currentAmount: 0,
+                    deadline,
+                    description,
+                    contributors: []
+                };
+
+                campaigns.push(newCampaign);
+                saveCampaigns();
+                renderCampaigns();
+
+                alert(`Campaign "${name}" has been successfully created and saved locally!`);
+                this.reset();
+                
+                // Scroll down to the campaigns section
+                document.getElementById('active-campaigns').scrollIntoView({ behavior: 'smooth' });
+            });
+        }
+
+        // Initial render on page load
+        document.addEventListener('DOMContentLoaded', renderCampaigns);
     </script>
 </body>
 </html>
